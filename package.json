@@ -1,0 +1,14 @@
+{
+  "name": "english-class-app",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev"
+  }
+}
