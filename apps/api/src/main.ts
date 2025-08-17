@@ -1,28 +1,43 @@
 import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import * as cors from 'cors'
-import { appConfig } from './common/config/app.config'
-import { validationConfig } from './common/config/validation.config'
 import { ValidationPipe } from '@nestjs/common'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   
-  // Debug CORS config
-  console.log('CORS Config:', appConfig.cors)
-  console.log('CORS_ORIGIN env:', process.env.CORS_ORIGIN)
-  
-  // CORS
-  app.use(cors(appConfig.cors))
+  // Enable CORS
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    credentials: true,
+  })
   
   // Validation
-  app.useGlobalPipes(new ValidationPipe(validationConfig))
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+  }))
   
   // Global prefix
   app.setGlobalPrefix('api')
   
-  await app.listen(appConfig.port)
-  console.log(`API running on http://localhost:${appConfig.port}`)
+  // Swagger documentation
+  const config = new DocumentBuilder()
+    .setTitle('EngRisk API')
+    .setDescription('The EngRisk learning platform API')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build()
+
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('docs', app, document)
+  
+  const port = process.env.PORT || 3000
+  await app.listen(port)
+  
+  console.log(`🚀 Application is running on: http://localhost:${port}`)
+  console.log(`📚 Swagger documentation: http://localhost:${port}/docs`)
 }
 bootstrap()

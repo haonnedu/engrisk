@@ -1,1 +1,0 @@
-{"version":3,"file":"environment.config.js","sourceRoot":"","sources":["../../../src/common/config/environment.config.ts"],"names":[],"mappings":";;;AAAa,QAAA,iBAAiB,GAAG;IAC/B,aAAa,EAAE,OAAO,CAAC,GAAG,CAAC,QAAQ,KAAK,aAAa;IACrD,YAAY,EAAE,OAAO,CAAC,GAAG,CAAC,QAAQ,KAAK,YAAY;IACnD,MAAM,EAAE,OAAO,CAAC,GAAG,CAAC,QAAQ,KAAK,MAAM;CACxC,CAAA"}

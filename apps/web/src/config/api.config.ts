@@ -21,7 +21,4 @@ export const apiConfig = {
       delete: (id: string) => `/classes/${id}`,
     },
   },
-  headers: {
-    'Content-Type': 'application/json',
-  },
 } 
